@@ -1,0 +1,31 @@
+/* Satrlar orasidagi bo'shliq */
+.row {
+ margin-bottom: 10px;
+}
+
+/* margin-bottom: 15px; Ustunlar ichki bo'shlig'i */
+.col {
+  padding: 10px;
+}
+button[type="submit"] {
+  margin-top: 15px; /* Tugmani yuqoridan ajratish uchun */
+  padding: 10px 20px; /* Tugmaning ichki bo'shligi */
+  background-color: #28a745; /* Yashil fon rangi */
+  color: white; /* Oq matn rangi */
+  border: none; /* Ramka olib tashlash */
+  border-radius: 5px; /* Tugmani yumaloqlash */
+  cursor: pointer; /* Hover paytida pointerni ko'rsatish */
+}
+
+button[type="submit"]:hover {
+  background-color: #4aa35d; /* Hover holatida rangi */
+}
+
+/* Inputlar uchun styling */
+.form-control {
+  padding: 10px; /* Ichki bo'shliq */
+  border-radius: 5px; /* Qirralarni yantig‘lash */
+  border: 1px solid #ccc; /* Kulrang ramka */
+  width: 100%; /* Inputni ustun kengligiga moslash */
+  box-sizing: border-box; /* Padding kenglikka ta'sir qilmasligi uchun */
+}

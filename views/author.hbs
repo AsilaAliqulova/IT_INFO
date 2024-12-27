@@ -1,0 +1,125 @@
+<div id="content">
+  <ol id="author-list"></ol>
+  
+  <script src="./js/script.js"></script>
+
+  <script>
+    getAuthors();
+  </script>
+
+ 
+<button type="submit" class="btn btn-success" id="showFormBtn">ADD AUTHOR</button>
+
+
+
+<script>
+  document.getElementById("showFormBtn").addEventListener("click", function() {
+    const container = document.getElementById("content");
+    container.innerHTML = `
+      <form id="addForm">
+        <div>
+          <div class="row">
+            <div class="col">
+              <input
+                type="text"
+                class="form-control"
+                id="firstName"
+                name="firstName"
+                placeholder="First name"
+                aria-label="First name"
+              />
+            </div>
+            <div class="col">
+              <input
+                type="text"
+                class="form-control"
+                id="lastName"
+                name="lastName"
+                placeholder="Last name"
+                aria-label="Last name"
+              />
+            </div>
+          </div>
+
+          <div class="col">
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              name="email"
+              placeholder="Email..."
+              aria-label="Email"
+            />
+          </div>
+
+          <div class="row">
+            <div class="col">
+              <input
+                type="tel"
+                class="form-control"
+                id="phone"
+                name="phone"
+                placeholder="Phone"
+                aria-label="Phone"
+              />
+            </div>
+            <div class="col">
+              <input
+                type="password"
+                class="form-control"
+                id="password"
+                name="password"
+                placeholder="Password"
+                aria-label="Password"
+              />
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-success">ADD</button>
+        </div>
+      </form>
+
+
+      <script>
+        const form = document.getElementById("addForm");
+        form.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const firstName = document.getElementById("firstName").value;
+          const lastName  = document.getElementById("lastName").value;
+          const email     = document.getElementById("email").value;
+          const phone     = document.getElementById("phone").value;
+          const password  = document.getElementById("password").value;
+
+          try {
+            const response = await fetch("http://localhost:4040/api/author", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify({
+               first_name: firstName,
+               last_name: lastName,
+               email: email,
+               phone: phone
+              })
+            });
+
+            if (!response.ok) {
+              console.error("Author failed:");
+            }
+            const data = await response.json();
+            console.log("Add author successfully");
+            console.log("data:", data);
+            alert("Muallif muvaffaqiyatli qo'shildi!");
+
+          } catch (error) {
+            console.error("Error:", error);
+            alert("Xatolik yuz berdi.");
+          }
+        });
+      <\/script>
+    `;
+
+  
+  });
+</script>

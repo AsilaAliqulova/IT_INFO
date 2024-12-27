@@ -1,0 +1,6 @@
+2024-12-25T07:51:41.634Z error: unhandledRejection: getaddrinfo ENOTFOUND bio-shard-00-02.xy33u.mongodb.net
+MongoServerSelectionError: getaddrinfo ENOTFOUND bio-shard-00-02.xy33u.mongodb.net
+    at Topology.selectServer (D:\HomeworkN15\lesson39\node_modules\mongodb\lib\sdam\topology.js:303:38)
+    at async tryOperation (D:\HomeworkN15\lesson39\node_modules\mongodb\lib\operations\execute_operation.js:138:18)
+    at async executeOperation (D:\HomeworkN15\lesson39\node_modules\mongodb\lib\operations\execute_operation.js:69:16)
+    at async Collection.insertOne (D:\HomeworkN15\lesson39\node_modules\mongodb\lib\collection.js:154:16)

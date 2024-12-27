@@ -1,0 +1,62 @@
+<form id="getDict">
+
+
+<table class="table table-dark table-hover" id="table">
+  <thead>
+    <tr>
+      <th>N</th>
+      <th>Term</th>
+      <th>Letter</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+
+
+  <button type="submit" class="btn btn-primary">GET ALL</button>
+
+</form>
+
+<script>
+  const form = document.getElementById("getDict");
+  const tableBody = document.querySelector("#table tbody");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault(); 
+
+    try {
+      const response = await fetch("http://localhost:4040/api/dictionary", {
+        method: "GET",
+      });
+      if (response.ok) {
+        const data = await response.json(); 
+        console.log("Fetched data:", data);
+        renderTable(data);
+      } else {
+        console.error("Failed to fetch data");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  });
+
+  function renderTable(data) {
+
+  const items = data;
+
+  tableBody.innerHTML = "";
+
+
+  items.forEach((item, index) => {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${index + 1}</td>
+      <td>${item.term}</td>
+      <td>${item.letter}</td>
+ 
+    `;
+    tableBody.appendChild(row);
+  });
+}
+
+</script>

@@ -4,7 +4,7 @@
 //   {
 //     author_first_name: {
 //       type: String,
-//       required: true,
+//
 //       trim: true,
 //       uppercase: true,
 //     },
@@ -15,7 +15,7 @@
 //     },
 //     author_nick_name: {
 //       type: String,
-//       required: true,
+//
 //       trim: true,
 //       uppercase: true,
 //       unique: true,
@@ -48,7 +48,7 @@
 //     },
 //     author_position: {
 //       type: String,
-//       required: true,
+//
 //     },
 //     author_photo: {
 //       type: String,
@@ -75,7 +75,6 @@ const AuthorSchema = new Schema(
   {
     first_name: {
       type: String,
-      required: true,
       trim: true,
       uppercase: true,
     },
@@ -86,27 +85,15 @@ const AuthorSchema = new Schema(
     },
     nick_name: {
       type: String,
-      required: true,
       trim: true,
       uppercase: true,
-      unique: true,
     },
     email: {
       type: String,
       lowercase: true,
-      match: [
-        /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/,
-        "Emailni to'g'ri kiriting",
-      ],
     },
     phone: {
       type: String,
-      validate: {
-        validator: function (value) {
-          return /^\d{2}-\d{3}-\d{2}-\d{2}$/.test(value);
-        },
-        message: (props) => `${props.value}-raqam noto'g'ri`,
-      },
     },
     password: {
       type: String,
@@ -119,7 +106,6 @@ const AuthorSchema = new Schema(
     },
     position: {
       type: String,
-      required: true,
     },
     photo: {
       type: String,
@@ -129,9 +115,7 @@ const AuthorSchema = new Schema(
     },
     is_active: {
       type: String,
-      required: function () {
-        return this.isMarried;
-      },
+     
     },
     refresh_token: String,
     activation_link: String,

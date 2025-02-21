@@ -1,0 +1,96 @@
+<form id="loginForm">
+  <div class="mb-3">
+    <label for="email" class="form-label">Email</label>
+    <input
+      type="email"
+      class="form-control"
+      id="email"
+      name="email"
+      aria-describedby="emailHelp"
+    />
+  </div>
+  <div class="mb-3">
+    <label for="password" class="form-label">Password</label>
+    <input type="password" class="form-control" id="password" name="password" />
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<div id="welcome" style="display: none;">
+  <h3>Welcome Super Admin</h3>
+  <ul id="adminList"></ul>
+</div>
+
+
+  <script>
+  const form = document.getElementById("loginForm");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+   
+
+    try {
+      const loginResponse = await fetch("http://localhost:4040/api/admin/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
+
+      if (!loginResponse.ok) {
+        const errorMessage = await loginResponse.text();
+        console.error("Login failed:", errorMessage);
+        return;
+      }
+
+      const loginData = await loginResponse.json();
+      localStorage.setItem("accessToken", loginData.accessToken);
+
+      if (loginData.role === "super_admin") {
+        console.log("Super Admin logged in");
+
+        const adminResponse = await fetch("http://localhost:4040/api/admin", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            body:JSON.stringify({
+                    email,
+                    password
+                })
+          },
+        });
+
+        if (!adminResponse.ok) {
+          console.log("Admin fetch failed");
+          return;
+        }
+
+        const adminList = await adminResponse.json();
+        const welcome = document.getElementById("welcome");
+        const adminListElement = document.getElementById("adminList");
+
+        adminList.forEach((admin) => {
+          const listItem = document.createElement("li");
+          listItem.textContent = `${admin.name} (${admin.email})`;
+          adminListElement.appendChild(listItem);
+        });
+
+        form.style.display = "none";
+        welcome.style.display = "block";
+      } else {
+        console.log("Admin is not a super admin");
+      }
+    } catch (error) {
+      console.error("Error:", error.message);
+    }
+  });
+</script>
+

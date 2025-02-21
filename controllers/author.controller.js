@@ -6,18 +6,19 @@ const bcrypt = require("bcrypt");
 const config = require("config");
 const authorJwt = require("../services/jwt.servies");
 const { to } = require("../helpers/to_promis");
-const uuid = require("uuid");
+const uuid = require("uuid");``
 const mailService = require("../services/mail.service");
 
 const addAuthor = async (req, res) => {
+  console.log(123456)
   try {
-    const { error, value } = authorValidation(req.body);
-    if (error) {
-      return errorHandler(error, res);
-    }
+    // const { error, value } = authorValidation(req.body);
+    // if (error) {
+    //   return errorHandler(error, res);
+    // }
     const data = req.body;
-
-    const heshedPassword = bcrypt.hashSync(data.password, 7);
+    
+    const heshedPassword = bcrypt.hashSync("data.password", 7);
 
     const activation_link = uuid.v4();
     const newAuthor = await Author.create({
@@ -26,8 +27,9 @@ const addAuthor = async (req, res) => {
       activation_link,
     });
 
+    
     await mailService.sendMAilActivationCode(
-      value.email,
+      data.email,
       `${config.get("api_url")}/api/author/activate/${activation_link}`
     );
 

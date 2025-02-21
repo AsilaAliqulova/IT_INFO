@@ -29,12 +29,10 @@
 
 
 const Joi = require("joi");
-const authorFullName = (parent) => {
-  return parent.first_name + " " + parent.last_name;
-};
+
 exports.authorValidation = (data) => {
   const authorSchema = Joi.object({
-    first_name: Joi.string().required(),
+    first_name: Joi.string(),
     last_name: Joi.string(),
     nick_name: Joi.string().min(2).max(20),
     password: Joi.string().pattern(new RegExp("^[a-zA-Z0-9!@#]{3,30}$")),

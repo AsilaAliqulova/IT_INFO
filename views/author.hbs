@@ -1,22 +1,8 @@
 <div id="content">
-  <ol id="author-list"></ol>
-  
-  <script src="./js/script.js"></script>
+  <ol style="display: block;" id="author-list"></ol>
+  <button type="submit" class="btn btn-success" id="showFormBtn">ADD AUTHOR</button>
 
-  <script>
-    getAuthors();
-  </script>
-
- 
-<button type="submit" class="btn btn-success" id="showFormBtn">ADD AUTHOR</button>
-
-
-
-<script>
-  document.getElementById("showFormBtn").addEventListener("click", function() {
-    const container = document.getElementById("content");
-    container.innerHTML = `
-      <form id="addForm">
+     <form id="addForm" style="display: none;">
         <div>
           <div class="row">
             <div class="col">
@@ -74,14 +60,23 @@
               />
             </div>
           </div>
-
           <button type="submit" class="btn btn-success">ADD</button>
         </div>
       </form>
+  
+  <script src="./js/script.js"></script>
 
-
-      <script>
-        const form = document.getElementById("addForm");
+  <script>
+    getAuthors();
+  </script>
+<script>
+      let authorList = document.getElementById("author-list")
+    let form = document.getElementById("addForm");
+    let btn = document.getElementById("showFormBtn")
+  btn.addEventListener("click", function() {
+    authorList.style.display = "none"
+    btn.style.display = "none"
+    form.style.display = "block"
         form.addEventListener("submit", async (e) => {
           e.preventDefault();
           const firstName = document.getElementById("firstName").value;
@@ -89,7 +84,12 @@
           const email     = document.getElementById("email").value;
           const phone     = document.getElementById("phone").value;
           const password  = document.getElementById("password").value;
-
+         console.log({
+               first_name: firstName,
+               last_name: lastName,
+               email: email,
+               phone: phone
+              })
           try {
             const response = await fetch("http://localhost:4040/api/author", {
               method: "POST",
@@ -111,15 +111,15 @@
             console.log("Add author successfully");
             console.log("data:", data);
             alert("Muallif muvaffaqiyatli qo'shildi!");
-
+              authorList.style.display = "block"
+            form.style.display = "none"
+            btn.style.display = "block"
+             getAuthors();
           } catch (error) {
             console.error("Error:", error);
             alert("Xatolik yuz berdi.");
           }
         });
-      <\/script>
-    `;
-
-  
   });
+  
 </script>

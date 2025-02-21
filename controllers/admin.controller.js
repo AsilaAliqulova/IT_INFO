@@ -14,7 +14,7 @@ const addAdmin = async (req, res) => {
     }
     const data = req.body;
 
-    const heshedPassword = bcrypt.hashSync(data.password, 7);
+    const heshedPassword = bcrypt.hashSync("data.password", 7);
 
     const newAdmin = await Admin.create({
       ...value,
@@ -88,7 +88,7 @@ const refreshAdminToken = async (req, res) => {
     const { refreshToken } = req.cookies;
     console.log(refreshToken);
     if (!refreshToken) {
-      return res.status(400).send({ msg: "Cookei Tokin topilmadi" });
+      return res.status(400).send({ msg: "Cookei Token topilmadi" });
     }
     const [error, tokenFromCookie] = await to(
       adminJwt.verifyRefreshToken(refreshToken)

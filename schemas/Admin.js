@@ -5,15 +5,12 @@ const adminSchema = new Schema(
   {
     name: {
       type: String,
-      required: [true, "Admin name is required"],
       trim: true,
       minLength: [3, "Admin name must be at least 3 characters"],
       maxLength: [50, "Admin name cannot exceed 50 characters"],
     },
     email: {
       type: String,
-      required: [true, "Email is required"],
-      unique: true,
       lowercase: true,
       match: [
         /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/,
@@ -31,7 +28,6 @@ const adminSchema = new Schema(
     },
     password: {
       type: String,
-      required: [true, "Password is required"],
       minLength: [6, "Password must be at least 6 characters long"],
     },
     refresh_token:{
